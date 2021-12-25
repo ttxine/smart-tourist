@@ -1,0 +1,66 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Умный Турист</title>
+	<link rel="shortcut icon" href="{% static 'favicon.svg' %}">
+	<link rel="stylesheet" type="text/css" href="{% static 'css/main.css' %}">
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=Baumans&family=Comfortaa:wght@300&family=Roboto:wght@100;300;400&display=swap" rel="stylesheet">
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.2/font/bootstrap-icons.css">
+</head>
+<body>
+	{% for message in messages %}
+	    {% if message.level == DEFAULT_MESSAGE_LEVELS.SUCCESS %}
+			<div class="success">
+				<div class="success__inner">
+					{{ message }}
+				</div>
+			</div>
+
+			<script>
+				const msg = document.querySelector('.success')
+
+				function sleep (time) {
+					return new Promise((resolve) => setTimeout(resolve, time));
+				  }
+				  
+				sleep(3000).then(() => {
+					msg.style.setProperty('opacity', 0)
+				});
+
+			</script>
+	    {% endif %}
+	{% endfor %}
+	<header class="header">
+		<div class="header__inner">
+			<div class="header__logo">
+				<span class="logo unselectable">Умный.Турист</span>
+			</div>
+			<div class="header__nav">
+				<ul>
+					<li class="header__nav-item"><a href="{% url 'homepage' %}" class="insite">Главная</a></li>
+					<li class="header__nav-item"><a id="headerContact" class="insite">Связаться с нами</a></li>
+					<li class="header__nav-item"><a id="headerAbout" class="insite">О нас</a></li>
+				</ul>
+			</div>
+		</div>
+	</header>
+	<main class="main">
+		{% block content %}
+		{% endblock %}
+	</main>
+	<footer class="footer">
+		<div class="footer__inner">
+			<div class="logo">Умный.Турист</div>
+			<p class="caps__text">Мы предлагаем трудовой туризм по Новгородской области</p>
+			<span class="caps__text">intelligent.traveller@mail.ru</span> | <a href="{% url 'privacy' %}" class="caps__text link">Политика конфиденциальности</a>
+		</div>
+	</footer>
+</body>
+<script type="text/javascript" src="{% static 'js/main.js' %}"></script>
+</html>

@@ -1,0 +1,87 @@
+{% extends 'contact/index.html' %}
+
+{% load static %}
+
+{% block content %}
+  <div class="main__header">
+    <div class="main__header-logo">
+      <span class="logo unselectable">Умный.Турист</span>
+      <p class="caps__text">Мы предлагаем трудовой туризм по Новгородской области</p>
+    </div>
+    <div class="main__header-btn unselectable">
+      Оставить заявку
+    </div>
+    <div class="main__header-scroll">
+      ПРОКРУТИТЕ
+    </div>
+  </div>
+  <div class="main__inner">
+    <div class="main__inner-background-before"></div>
+    <div class="main__inner-background">
+      <img style="object-fit: cover; opacity: .45; width: max(105%, 2000px); z-index: 0; background-size: cover;" src="{% static 'img/background.png' %}">
+    </div>
+    <div class="main__inner-header">
+      ПУТЕШЕСТВУЙТЕ БЕЗ ЗАТРАТ
+    </div>
+    <div id="about" class="main__inner-body">
+      <p>Трудовой туризм - это туризм, включающий в себя отдых и работу. Предполагает трудовую деятельность за проживание.
+        Такое понятие часто можно встретить за границей, и всё чаще в Крыму или на Камчатке. А что если эту идею адаптировать под нашу Новгородскую область?<br><br>Идея заключается в следующем:
+        турист работает на благо определённой организации, а она в свою очередь обеспечивает его жильём и питанием.
+        Выгоду получают обе стороны.
+      </p>
+    </div>
+  </div>
+  <div class="main__collab">
+  	<div class="main__collab-background-before"></div>
+    <div class="main__collab-background">
+      <img style="object-fit: cover; opacity: .45; width: max(105%, 2000px); z-index: 0; background-size: cover;" src="{% static 'img/background.png' %}">
+    </div>
+    <div class="main__collab-header">
+      С НАМИ СОТРУДНИЧАЮТ
+    </div>
+    <div id="collab" class="main__collab-body">
+      <ul>
+        {% for collaboration in collaborations %}
+        <li>
+          <div style="position: relative;">
+            <span class="main__collab-title">{{ collaboration.title }}</span>
+            <i class="main__collab-more bi bi-chevron-right"></i>
+          </div>
+          <div class="main__collab-detail">
+            <p>Описание</p>
+            <p>
+              {{ collaboration.short_description }}
+            </p>
+            <a href="{{ collaboration.url }}" class="link">{{ collaboration.url }}</a>
+          </div>
+        </li>
+        {% endfor %}
+      </ul>
+    </div>
+  </div>
+  <div class="main__contact">
+    <div class="main__contact-background-before"></div>
+    <div class="main__contact-background">
+      <img style="object-fit: cover; opacity: .45; width: max(115%, 2000px); z-index: 0; filter: blur(.5rem);" height="1350px" src="{% static 'img/background.png' %}">
+    </div>
+    <div class="main__contact-header">
+      СВЯЖИТЕСЬ С НАМИ
+    </div>
+    <div class="main__contact-body">
+      <div id="contact" class="main__contact-kind">
+        <div class="kind kind-left active">Турист</div>
+        <div class="kind kind-right">Работодатель</div>
+      </div>
+      <form id="employer-form" method="post" class="form">
+        {% csrf_token %}
+        {{ employer_form.as_p }}
+        <button type="submit" class="form-btn">Оставить заявку</button>
+      </form>
+      <form id="tourist-form" method="post" class="form form-active">
+        {% csrf_token %}
+        {{ tourist_form.as_p }}
+        <button type="submit" class="form-btn">Оставить заявку</button>
+      </form>
+    </div>
+  </div>
+{% endblock %}
